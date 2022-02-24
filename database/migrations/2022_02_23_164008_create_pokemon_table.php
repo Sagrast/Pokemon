@@ -17,9 +17,9 @@ class CreatePokemonTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('nome');
-            $table->string('descripcion');
-            $table->string('tipo');
-            $table->string('debilidades');
+            $table->string('descripcion')->nullable();
+            $table->string('tipo')->nullable();
+            $table->string('debilidades')->nullable();
         });
     }
 

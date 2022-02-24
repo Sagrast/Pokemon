@@ -14,7 +14,9 @@ class PokemonController extends Controller
      */
     public function index()
     {
-        //
+        $pokemon = Pokemon::all();
+
+        return $pokemon;
     }
 
     /**
@@ -39,8 +41,13 @@ class PokemonController extends Controller
         $pokemon = new Pokemon;
         // Asignamos ao atributo nome o parámetro enviado na Request
         $pokemon->nome = $request->nome;
+        $pokemon->descripcion = $request->descripcion;
+        $pokemon->tipo = $request->tipo;
+        $pokemon->debilidades = $request->debilidades;
         // Gardamos o cambio no modelo
         $pokemon->save();
+
+        return $pokemon;
 
 /**
 * Amosar o recurso especificado
@@ -68,7 +75,10 @@ class PokemonController extends Controller
      */
     public function edit($id)
     {
-        //
+        $pokemon = Pokemon::find($id);
+
+        return response()->json($pokemon);
+
     }
 
     /**
@@ -80,7 +90,24 @@ class PokemonController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $pokemon = Pokemon::find($id);
+
+        if (isset($request->nome)){
+            $pokemon->nome = $request->nome;
+        }
+        if (isset($request->descripcion)){
+        $pokemon->descripcion = $request->descripcion;
+        }
+        if (isset($request->tipo)){
+        $pokemon->tipo = $request->tipo;
+        }
+        if (isset($request->debilidades)){
+            $pokemon->debilidades = $request->debilidades;
+        }
+
+        $pokemon->update();
+
+        return response()->json($pokemon);
     }
 
     /**
@@ -91,6 +118,10 @@ class PokemonController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $pokemon = Pokemon::find($id);
+
+        $pokemon->delete();
+
+
     }
 }
